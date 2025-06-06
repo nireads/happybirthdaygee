@@ -3,116 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Media Website</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Happy Birthday Geebee!</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <!-- Home Page -->
-        <div id="home" class="page active">
-            <div class="home-heading">
-                <!-- Replace with your heading image -->
-                <img src="/api/placeholder/600/200" alt="Main Heading" id="main-heading">
-            </div>
-            
-            <div class="main-box">
-                <!-- Replace with your clickable box image -->
-                <img src="/api/placeholder/400/300" alt="Click to Enter Gallery" id="enter-gallery" onclick="showGallery()">
+        <!-- Main Page -->
+        <div id="main-page" class="page active">
+            <img src="images/heading.png" alt="Happy Birthday Geebee!" class="heading-image">
+            <div class="gift-box">
+                <img src="images/box-image.png" alt="Click to open your gift" id="gift-box-image">
+                <div class="hint">Click the box to open your gift!</div>
             </div>
         </div>
 
-        <!-- Gallery Page -->
-        <div id="gallery" class="page">
-            <button class="back-btn" onclick="showHome()">← Back to Home</button>
-            
-            <div class="gallery-heading">
-                <!-- Replace with your gallery heading image -->
-                <img src="/api/placeholder/500/150" alt="Gallery Heading">
+        <!-- Memory Wall Page -->
+        <div id="memory-wall" class="page">
+            <img src="images/heading.png" alt="Happy Birthday Geebee!" class="heading-image">
+            <div class="subtitle">A collection of things that remind me of you</div>
+            <div class="memory-grid" id="memory-grid"></div>
+            <button class="nav-button" onclick="showPage('messages-page')">Next: Birthday Wishes</button>
+        </div>
+
+        <!-- Messages Page -->
+        <div id="messages-page" class="page">
+            <img src="images/heading.png" alt="Happy Birthday Geebee!" class="heading-image">
+            <div class="subtitle">Open your birthday messages</div>
+            <div class="envelopes-grid" id="envelopes-grid"></div>
+        </div>
+
+        <!-- Individual Message Page -->
+        <div id="message-display" class="page">
+            <div class="message-container" id="message-container"></div>
+            <button class="close-button" onclick="goBack()">← Back to messages</button>
+        </div>
+
+        <!-- Music Page -->
+        <div id="music-page" class="page">
+            <img src="images/heading.png" alt="Happy Birthday Geebee!" class="heading-image">
+            <div class="subtitle">A playlist from all your friends</div>
+            <div class="spotify-embed">
+                <iframe src="https://open.spotify.com/embed/playlist/YOUR_PLAYLIST_ID" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
             </div>
-
-            <div class="gallery-grid">
-                <!-- Envelope Items - You can replace these background images with your own -->
-                <div class="gallery-item" onclick="showText('Sample text content for envelope 1. This is where your message would appear.')">
-                    <img src="/api/placeholder/250/200" alt="Background">
-                    <div class="gallery-overlay">
-                        <div class="overlay-icon">✉️</div>
-                    </div>
-                </div>
-
-                <!-- CD Items -->
-                <div class="gallery-item" onclick="showVideo('video1.mp4')">
-                    <img src="/api/placeholder/250/200" alt="Background">
-                    <div class="gallery-overlay">
-                        <div class="overlay-icon">💿</div>
-                    </div>
-                </div>
-
-                <div class="gallery-item" onclick="showText('Another envelope with different content. You can customize this text for each envelope.')">
-                    <img src="/api/placeholder/250/200" alt="Background">
-                    <div class="gallery-overlay">
-                        <div class="overlay-icon">✉️</div>
-                    </div>
-                </div>
-
-                <div class="gallery-item" onclick="showVideo('video2.mp4')">
-                    <img src="/api/placeholder/250/200" alt="Background">
-                    <div class="gallery-overlay">
-                        <div class="overlay-icon">💿</div>
-                    </div>
-                </div>
-
-                <div class="gallery-item" onclick="showText('Third envelope message. Each envelope can contain unique content and messages.')">
-                    <img src="/api/placeholder/250/200" alt="Background">
-                    <div class="gallery-overlay">
-                        <div class="overlay-icon">✉️</div>
-                    </div>
-                </div>
-
-                <div class="gallery-item" onclick="showVideo('video3.mp4')">
-                    <img src="/api/placeholder/250/200" alt="Background">
-                    <div class="gallery-overlay">
-                        <div class="overlay-icon">💿</div>
-                    </div>
-                </div>
-
-                <!-- Add more items as needed -->
-                <div class="gallery-item" onclick="showText('Fourth envelope with more personalized content for the viewer.')">
-                    <img src="/api/placeholder/250/200" alt="Background">
-                    <div class="gallery-overlay">
-                        <div class="overlay-icon">✉️</div>
-                    </div>
-                </div>
-
-                <div class="gallery-item" onclick="showVideo('video4.mp4')">
-                    <img src="/api/placeholder/250/200" alt="Background">
-                    <div class="gallery-overlay">
-                        <div class="overlay-icon">💿</div>
-                    </div>
-                </div>
-            </div>
+            <button class="nav-button" onclick="showPage('memory-wall')">Back to Memory Wall</button>
         </div>
     </div>
 
-    <!-- Text Modal -->
-    <div id="textModal" class="text-modal">
-        <div class="text-content">
-            <button class="close-btn" onclick="closeText()">×</button>
-            <div id="textContent">
-                <!-- Text content will be inserted here -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Video Modal -->
-    <div id="videoModal" class="video-modal">
-        <div class="video-container">
-            <button class="video-close-btn" onclick="closeVideo()">Close</button>
-            <video id="modalVideo" controls>
-                <source src="" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        </div>
-    </div>
+    <div class="confetti-container" id="confetti"></div>
 
     <script src="script.js"></script>
 </body>
