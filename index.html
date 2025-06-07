@@ -26,7 +26,7 @@
 
         body {
             font-family: 'Georgia', serif;
-            background: linear-gradient(135deg, var(--cararra), var(--loblolly));
+            background: white; /* Changed to white background */
             min-height: 100vh;
             overflow-x: hidden;
         }
@@ -55,8 +55,8 @@
 
         /* Page 1 - Open the Box */
         .heading-image {
-            width: 400px;
-            height: 100px;
+            width: 600px; /* Increased width */
+            height: 150px; /* Increased height */
             border-radius: 15px;
             display: flex;
             align-items: center;
@@ -69,7 +69,7 @@
         .heading-image img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain; /* Changed to contain to prevent stretching */
             border-radius: 15px;
         }
 
@@ -78,8 +78,8 @@
         }
 
         .gift-box {
-            width: 200px;
-            height: 200px;
+            width: 300px; /* Increased size */
+            height: 300px; /* Increased size */
             border-radius: 20px;
             margin: 0 auto 2rem;
             cursor: pointer;
@@ -179,6 +179,13 @@
         .envelope:hover {
             transform: translateY(-8px) scale(1.05);
             box-shadow: 0 15px 30px rgba(140, 164, 178, 0.5);
+        }
+
+        /* Adjusted heading for pages 4 and 5 */
+        #page4 .heading-image,
+        #page5 .heading-image {
+            width: 600px;
+            height: 150px;
         }
 
         .letter-modal {
@@ -295,13 +302,20 @@
         /* Responsive */
         @media (max-width: 768px) {
             .heading-image {
-                width: 300px;
+                width: 90%;
+                height: 120px;
                 font-size: 2rem;
             }
             
+            #page4 .heading-image,
+            #page5 .heading-image {
+                width: 90%;
+                height: 120px;
+            }
+            
             .gift-box {
-                width: 150px;
-                height: 150px;
+                width: 250px;
+                height: 250px;
             }
             
             .cake-image {
@@ -339,10 +353,6 @@
     <!-- Page 2: Happy Birthday -->
     <div class="page" id="page2">
         <div class="page-content">
-            <!-- Heading Image -->
-            <div class="heading-image">
-                <img src="images/happy-birthday-heading.png" alt="Happy Birthday">
-            </div>
             <!-- Cake Image -->
             <div class="cake-image">
                 <img src="images/birthday-cake.png" alt="Birthday Cake">
