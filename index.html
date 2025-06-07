@@ -4,68 +4,543 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday Geebee!</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --east-bay: #3f6181;
+            --cararra: #eaece5;
+            --bali-hai: #8ca4b2;
+            --loblolly: #b3c4c9;
+            --glacier: #6a9cc0;
+            --xanadu: #757c74;
+            --jumbo: #747476;
+            --bombay: #acacb1;
+            --green-spring: #acb4ac;
+            --french-gray: #cccccf;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, var(--cararra), var(--loblolly));
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .page {
+            display: none;
+            min-height: 100vh;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .page-content {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+        }
+
+        /* Page 1 - Open the Box */
+        .heading-image {
+            width: 400px;
+            height: 100px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 3rem;
+            box-shadow: 0 8px 25px rgba(63, 97, 129, 0.3);
+            overflow: hidden;
+        }
+
+        .heading-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        .box-container {
+            margin: 2rem 0;
+        }
+
+        .gift-box {
+            width: 200px;
+            height: 200px;
+            border-radius: 20px;
+            margin: 0 auto 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(106, 156, 192, 0.4);
+            overflow: hidden;
+        }
+
+        .gift-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+
+        .gift-box:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(106, 156, 192, 0.6);
+        }
+
+        .open-text {
+            width: 300px;
+            height: 60px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .open-text img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        /* Page 2 - Happy Birthday */
+        .cake-image {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            margin: 2rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 15px 40px rgba(106, 156, 192, 0.4);
+            overflow: hidden;
+        }
+
+        .cake-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        /* Page 3 - Playlist */
+        .spotify-embed {
+            width: 100%;
+            max-width: 500px;
+            height: 600px;
+            border-radius: 20px;
+            margin: 2rem auto;
+            box-shadow: 0 10px 30px rgba(63, 97, 129, 0.3);
+        }
+
+        /* Page 4 - Messages */
+        .envelopes-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+            max-width: 1000px;
+        }
+
+        .envelope {
+            width: 200px;
+            height: 140px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(140, 164, 178, 0.3);
+        }
+
+        .envelope img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        .envelope:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(140, 164, 178, 0.5);
+        }
+
+        .letter-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .letter-content {
+            background: transparent;
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 90vw;
+            max-height: 90vh;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .letter-image {
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        .close-letter {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: rgba(63, 97, 129, 0.8);
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--cararra);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .close-letter:hover {
+            background: var(--east-bay);
+        }
+
+        /* Page 5 - Audio */
+        .audio-container {
+            margin: 2rem 0;
+            padding: 2rem;
+            background: var(--cararra);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(63, 97, 129, 0.2);
+        }
+
+        .audio-player {
+            width: 100%;
+            max-width: 400px;
+            margin: 1rem auto;
+        }
+
+        /* Navigation */
+        .nav-buttons {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-btn {
+            padding: 0.8rem 1.5rem;
+            background: var(--east-bay);
+            color: var(--cararra);
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .nav-btn:hover {
+            background: var(--glacier);
+            transform: translateY(-2px);
+        }
+
+        .nav-btn:disabled {
+            background: var(--bombay);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .page.active .page-content {
+            animation: fadeIn 0.8s ease;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .heading-image {
+                width: 300px;
+                font-size: 2rem;
+            }
+            
+            .gift-box {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .cake-image {
+                width: 250px;
+                height: 250px;
+            }
+            
+            .envelopes-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Main Page -->
-        <div id="main-page" class="page active">
-            <img src="images/heading.png" alt="Happy Birthday Geebee!" class="heading-image">
-            <div class="gift-box">
-                <img src="images/box-image.png" alt="Click to open your gift" id="gift-box-image">
-                <div class="hint">Click the box to open your gift!</div>
+    <!-- Page 1: Open the Box -->
+    <div class="page active" id="page1">
+        <div class="page-content">
+            <!-- Heading Image -->
+            <div class="heading-image">
+                <img src="images/heading.png" alt="Open the Box Heading">
             </div>
-        </div>
-
-        <!-- Cake Page -->
-        <div id="cake-page" class="page">
-            <img src="images/heading.png" alt="Happy Birthday Geebee!" class="heading-image">
-            <div class="subtitle">Here's something sweet for your special day!</div>
-            <div class="cake-container">
-                <img src="images/cake-image.png" alt="Birthday Cake" class="cake-image">
-                <button id="play-audio" class="audio-button">
-                    <span>🎵</span> Play Birthday Song
-                </button>
+            <!-- Gift Box -->
+            <div class="box-container">
+                <div class="gift-box" onclick="nextPage()">
+                    <img src="images/gift.png" alt="Gift Box">
+                </div>
+                <!-- Bottom Text Image -->
+                <div class="open-text">
+                    <img src="images/open-text.png" alt="Open the box for present">
+                </div>
             </div>
-            <button class="nav-button" onclick="showPage('memory-wall')">
-                Continue to Your Memories →
-            </button>
-        </div>
-
-        <!-- Memory Wall Page -->
-        <div id="memory-wall" class="page">
-            <img src="images/heading.png" alt="Happy Birthday Geebee!" class="heading-image">
-            <div class="subtitle">A collection of things that remind me of you</div>
-            <div class="memory-grid" id="memory-grid"></div>
-            <button class="nav-button" onclick="showPage('messages-page')">Next: Birthday Wishes</button>
-        </div>
-
-        <!-- Messages Page -->
-        <div id="messages-page" class="page">
-            <img src="images/heading.png" alt="Happy Birthday Geebee!" class="heading-image">
-            <div class="subtitle">Open your birthday messages</div>
-            <div class="envelopes-grid" id="envelopes-grid"></div>
-        </div>
-
-        <!-- Individual Message Page -->
-        <div id="message-display" class="page">
-            <div class="message-container" id="message-container"></div>
-            <button class="close-button" onclick="goBack()">← Back to messages</button>
-        </div>
-
-        <!-- Music Page -->
-        <div id="music-page" class="page">
-            <img src="images/heading.png" alt="Happy Birthday Geebee!" class="heading-image">
-            <div class="subtitle">A playlist from all your friends</div>
-            <div class="spotify-embed">
-                <iframe src="https://open.spotify.com/embed/playlist/YOUR_PLAYLIST_ID" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-            </div>
-            <button class="nav-button" onclick="showPage('memory-wall')">Back to Memory Wall</button>
         </div>
     </div>
 
-    <div class="confetti-container" id="confetti"></div>
+    <!-- Page 2: Happy Birthday -->
+    <div class="page" id="page2">
+        <div class="page-content">
+            <!-- Heading Image -->
+            <div class="heading-image">
+                <img src="images/happy-birthday-heading.png" alt="Happy Birthday">
+            </div>
+            <!-- Cake Image -->
+            <div class="cake-image">
+                <img src="images/birthday-cake.png" alt="Birthday Cake">
+            </div>
+        </div>
+    </div>
 
-    <script src="script.js"></script>
+    <!-- Page 3: Playlist -->
+    <div class="page" id="page3">
+        <div class="page-content">
+            <!-- Heading Image -->
+            <div class="heading-image">
+                <img src="images/playlist-heading.png" alt="Playlist by Friends">
+            </div>
+            <!-- Spotify Embed -->
+            <iframe
+                style="border-radius:12px"
+                src="https://open.spotify.com/embed/playlist/36xQRdnDTwqzDQMOLwXUSR?utm_source=generator"
+                width="100%" height="352"
+                frameborder="0"
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy">
+            </iframe>
+        </div>
+    </div>
+
+    <!-- Page 4: Messages by Friends -->
+    <div class="page" id="page4">
+        <div class="page-content">
+            <div class="heading-image">
+                <img src="images/messages-heading.png" alt="Messages by Friends">
+            </div>
+            
+            <div class="envelopes-container">
+                <div class="envelope" onclick="openLetter(1)">
+                    <img src="images/envelope1.png" alt="Message from Friend 1">
+                </div>
+                <div class="envelope" onclick="openLetter(2)">
+                    <img src="images/envelope2.png" alt="Message from Friend 2">
+                </div>
+                <div class="envelope" onclick="openLetter(3)">
+                    <img src="images/envelope3.png" alt="Message from Friend 3">
+                </div>
+                <div class="envelope" onclick="openLetter(4)">
+                    <img src="images/envelope4.png" alt="Message from Friend 4">
+                </div>
+                <div class="envelope" onclick="openLetter(5)">
+                    <img src="images/envelope5.png" alt="Message from Friend 5">
+                </div>
+                <div class="envelope" onclick="openLetter(6)">
+                    <img src="images/envelope6.png" alt="Message from Friend 6">
+                </div>
+                <div class="envelope" onclick="openLetter(7)">
+                    <img src="images/envelope7.png" alt="Message from Friend 7">
+                </div>
+                <div class="envelope" onclick="openLetter(8)">
+                    <img src="images/envelope8.png" alt="Message from Friend 8">
+                </div>
+                <div class="envelope" onclick="openLetter(9)">
+                    <img src="images/envelope9.png" alt="Message from Friend 9">
+                </div>
+                <div class="envelope" onclick="openLetter(10)">
+                    <img src="images/envelope10.png" alt="Message from Friend 10">
+                </div>
+                <div class="envelope" onclick="openLetter(11)">
+                    <img src="images/envelope11.png" alt="Message from Friend 11">
+                </div>
+                <div class="envelope" onclick="openLetter(12)">
+                    <img src="images/envelope12.png" alt="Message from Friend 12">
+                </div>
+                <div class="envelope" onclick="openLetter(13)">
+                    <img src="images/envelope13.png" alt="Message from Friend 13">
+                </div>
+                <div class="envelope" onclick="openLetter(14)">
+                    <img src="images/envelope14.png" alt="Message from Friend 14">
+                </div>
+                <div class="envelope" onclick="openLetter(15)">
+                    <img src="images/envelope15.png" alt="Message from Friend 15">
+                </div>
+                <div class="envelope" onclick="openLetter(16)">
+                    <img src="images/envelope16.png" alt="Message from Friend 16">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 5: Audio Message -->
+    <div class="page" id="page5">
+        <div class="page-content">
+            <div class="heading-image">
+                <img src="images/audio-heading.png" alt="Personal Message">
+            </div>
+            
+            <div class="audio-container">
+                <p style="color: var(--east-bay); font-size: 1.2rem; margin-bottom: 1rem;">
+                    A special birthday wish just for you!
+                </p>
+                <audio class="audio-player" controls>
+                    <source src="images/birthday-message.mp3" type="audio/mpeg">
+                    <source src="images/birthday-message.wav" type="audio/wav">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+        </div>
+    </div>
+
+    <!-- Letter Modals -->
+    <div class="letter-modal" id="letterModal">
+        <div class="letter-content" id="letterContent">
+            <button class="close-letter" onclick="closeLetter()">&times;</button>
+            <img class="letter-image" id="letterImage" src="" alt="Birthday Message">
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav-buttons">
+        <button class="nav-btn" id="prevBtn" onclick="prevPage()" disabled>Previous</button>
+        <button class="nav-btn" id="nextBtn" onclick="nextPage()">Next</button>
+    </div>
+
+    <script>
+        let currentPage = 1;
+        const totalPages = 5;
+        
+        const letterImages = {
+            1: "images/letter1.png",
+            2: "images/letter2.png",
+            3: "images/letter3.png",
+            4: "images/letter4.png",
+            5: "images/letter5.png",
+            6: "images/letter6.png",
+            7: "images/letter7.png",
+            8: "images/letter8.png",
+            9: "images/letter9.png",
+            10: "images/letter10.png",
+            11: "images/letter11.png",
+            12: "images/letter12.png",
+            13: "images/letter13.png",
+            14: "images/letter14.png",
+            15: "images/letter15.png",
+            16: "images/letter16.png"
+        };
+
+        function showPage(pageNum) {
+            // Hide all pages
+            for (let i = 1; i <= totalPages; i++) {
+                document.getElementById(`page${i}`).classList.remove('active');
+            }
+            
+            // Show current page
+            document.getElementById(`page${pageNum}`).classList.add('active');
+            
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = pageNum === 1;
+            document.getElementById('nextBtn').disabled = pageNum === totalPages;
+            
+            if (pageNum === totalPages) {
+                document.getElementById('nextBtn').textContent = 'Finished';
+            } else {
+                document.getElementById('nextBtn').textContent = 'Next';
+            }
+        }
+
+        function nextPage() {
+            if (currentPage < totalPages) {
+                currentPage++;
+                showPage(currentPage);
+            }
+        }
+
+        function prevPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                showPage(currentPage);
+            }
+        }
+
+        function openLetter(letterNum) {
+            const modal = document.getElementById('letterModal');
+            const letterImage = document.getElementById('letterImage');
+            
+            letterImage.src = letterImages[letterNum];
+            modal.style.display = 'flex';
+        }
+
+        function closeLetter() {
+            document.getElementById('letterModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('letterModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeLetter();
+            }
+        });
+
+        // Initialize
+        showPage(1);
+    </script>
 </body>
 </html>
